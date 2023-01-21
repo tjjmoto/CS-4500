@@ -31,6 +31,7 @@ to end of the list ll . Returns 0 if successful , non−zero otherwise . */
 int addtolist(list* ll, char* item) {
     current = malloc(sizeof(ll));
     current->item = item;
+    ll->head->item = current->item;
 
     if (current->item == ll->head->item) {
         // Successful

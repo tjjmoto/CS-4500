@@ -2,7 +2,49 @@
 #include <stdlib.h>
 #include <string.h>
 #include "list.c"
+#include "list.h"
 
 int main () {
-    return 0;
+
+    list *llist = createlist();
+    if(llist != NULL)
+    { 
+
+        int reply = addtolist(llist, 'H');
+        if(reply!=1)
+        {
+            printf("Failed to add to List\n");
+        }
+        addtolist(llist, 'E');
+        addtolist(llist, 'L');
+        addtolist(llist, 'L');
+        addtolist(llist, 'O');
+
+        printlist(llist);
+
+        removefromlist(llist);
+        removefromlist(llist);
+
+        printlist(llist);
+
+        flushlist(llist);
+
+        addtolist(llist, 'E');
+        addtolist(llist, 'L');
+        addtolist(llist, 'L');
+        int reply = addtolist(llist, 6);
+        if(reply!=1)
+        {
+            printf("Failed to add to List\n");
+        }
+
+        printlist(llist);
+
+        freelist (llist);
+
+    }
+    else
+    {
+        printf("Failed to make List\n");
+    }
 };

@@ -60,7 +60,10 @@ char* removefromlist(list* ll) {
 /* Prints every string in each node of the list ll , with a new line
 character at the end of each string */
 void printlist(list* ll) {
-
+    while (ll->head != NULL) {
+        printf(" %s \n", ll->head->item);
+        ll->head = ll->head->next;
+    }
 };
 
 /* Flushes (clears) the entirlist and re−initializes the list . The passed

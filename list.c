@@ -5,9 +5,6 @@
 
 list *llist;
 
-int main () {
-    return 0;
-};
 
 /* Allocate space for a new list and set its head to NULL.
 Returns the created list if successful , NULL otherwise . */

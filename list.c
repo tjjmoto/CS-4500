@@ -3,8 +3,8 @@
 #include <string.h>
 #include "list.h"
 
-node *head;
-node *current = NULL;
+//node *head;
+//node *current = NULL;
 list *llist;
 
 int main(){
@@ -14,9 +14,10 @@ int main(){
 /* Allocate space for a new list and set its head to NULL.
 Returns the created list if successful , NULL otherwise . */
 list* createlist() {
+    addtolist(llist, "A");
     // TODO: Allocate space for new list
-    head = malloc(sizeof(llist));
-    llist->head = head;
+    //head = malloc(sizeof(llist));
+    //llist->head = head;
 
     if (llist->head != NULL) {
         return llist;
@@ -29,11 +30,12 @@ list* createlist() {
 ( use malloc , strlen , and strncpy ; or try strdup ) . Adds this new node
 to end of the list ll . Returns 0 if successful , non−zero otherwise . */
 int addtolist(list* ll, char* item) {
-    current = malloc(sizeof(ll));
-    current->item = item;
-    ll->head->item = current->item;
+    struct Node *new_node = (struct Node*)malloc(sizeof(struct Node));
+    new_node->item = item;
+    new_node->next = ll->head;
+    ll->head = new_node;
 
-    if (current->item == ll->head->item) {
+    if (new_node->item == ll->head->item) {
         // Successful
         return 0;
     } else {
@@ -43,9 +45,16 @@ int addtolist(list* ll, char* item) {
 };
 
 /* Removes the head of the list ll , extracts the string stored in the head ,
-and returns a pointer to thisstring . Also frees the removed head node . */
+and returns a pointer to this string . Also frees the removed head node . */
 char* removefromlist(list* ll) {
+    struct Node *temp = ll;
 
+    if (temp != NULL && temp->item == ll->head) {
+        // Change head
+        ll->head = temp->next;
+        free(temp);
+        return temp->next;
+    } 
 };
 
 /* Prints every string in each node of the list ll , with a new line

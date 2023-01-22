@@ -14,12 +14,9 @@ int main(){
 /* Allocate space for a new list and set its head to NULL.
 Returns the created list if successful , NULL otherwise . */
 list* createlist() {
-    addtolist(llist, "A");
-    // TODO: Allocate space for new list
-    //head = malloc(sizeof(llist));
-    //llist->head = head;
+    llist->head = NULL;
 
-    if (llist->head != NULL) {
+    if (llist->head = NULL) {
         return llist;
     } else {
         return NULL;
@@ -31,9 +28,12 @@ list* createlist() {
 to end of the list ll . Returns 0 if successful , non−zero otherwise . */
 int addtolist(list* ll, char* item) {
     struct Node *new_node = (struct Node*)malloc(sizeof(struct Node));
+
+
     new_node->item = item;
     new_node->next = ll->head;
     ll->head = new_node;
+
 
     if (new_node->item == ll->head->item) {
         // Successful
@@ -70,8 +70,14 @@ void printlist(list* ll) {
 ∗ pointer ll should still point to a valid , empty list when this function
 ∗ returns . Any memory allocated to store nodes in the list should be freed .
 */
-void flushlist(list* ll) {
+void flushlist(list* ll) 
+{
+    while (ll->head != NULL) {
+        removefromlist(ll);
+        ll->head = ll->head->next;
+    }
 
+    createlist()
 };
 
 /* De−allocates all data for the list . Ensure all memory allocated for list

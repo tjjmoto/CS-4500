@@ -3,18 +3,16 @@
 #include <string.h>
 #include "list.h"
 
-//node *head;
-//node *current = NULL;
 list *llist;
 
-int main(){
-
-}
+int main () {
+    return 0;
+};
 
 /* Allocate space for a new list and set its head to NULL.
 Returns the created list if successful , NULL otherwise . */
 list* createlist() {
-    llist->head = NULL;
+    llist = (struct List*)malloc(sizeof(struct List));
 
     if (llist->head = NULL) {
         return llist;
@@ -77,11 +75,15 @@ void flushlist(list* ll)
         ll->head = ll->head->next;
     }
 
-    createlist()
+    createlist();
 };
 
 /* De−allocates all data for the list . Ensure all memory allocated for list
 ll is freed , including any al located strings and list ll itself . */
 void freelist (list* ll) {
-
+    while (ll->head != NULL) {
+        removefromlist(ll);
+        ll->head = ll->head->next;
+    }
+    free(ll);
 };

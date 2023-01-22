@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "list.c"
 #include "list.h"
 
 int main () {
@@ -10,15 +9,15 @@ int main () {
     if(llist != NULL)
     { 
 
-        int reply = addtolist(llist, 'H');
+        int reply = addtolist(llist, "H");
         if(reply!=1)
         {
             printf("Failed to add to List\n");
         }
-        addtolist(llist, 'E');
-        addtolist(llist, 'L');
-        addtolist(llist, 'L');
-        addtolist(llist, 'O');
+        addtolist(llist, "E");
+        addtolist(llist, "L");
+        addtolist(llist, "L");
+        addtolist(llist, "O");
 
         printlist(llist);
 
@@ -29,10 +28,11 @@ int main () {
 
         flushlist(llist);
 
-        addtolist(llist, 'E');
-        addtolist(llist, 'L');
-        addtolist(llist, 'L');
-        int reply = addtolist(llist, 6);
+        addtolist(llist, "E");
+        addtolist(llist, "L");
+        addtolist(llist, "L");
+        
+        //reply = addtolist(llist, 6);
         if(reply!=1)
         {
             printf("Failed to add to List\n");

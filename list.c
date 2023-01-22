@@ -47,13 +47,13 @@ int addtolist(list* ll, char* item) {
 /* Removes the head of the list ll , extracts the string stored in the head ,
 and returns a pointer to this string . Also frees the removed head node . */
 char* removefromlist(list* ll) {
-    struct Node *temp = ll;
+    struct Node *temp = ll->head;
 
-    if (temp != NULL && temp->item == ll->head) {
+    if (temp != NULL && temp->item == ll->head->item) {
         // Change head
         ll->head = temp->next;
         free(temp);
-        return temp->next;
+        return temp->next->item;
     } 
 };
 

@@ -5,12 +5,13 @@
 
 int main () {
 
-    list *llist = createlist();
-    //if(llist != NULL)
-    //{ 
 
+    list *llist = createlist();
+    
+    if(llist != NULL)
+    { 
         int reply = addtolist(llist, "H");
-        if(reply!=1)
+        if(reply!=0)
         {
             printf("Failed to add to List\n");
         }
@@ -18,6 +19,8 @@ int main () {
         addtolist(llist, "L");
         addtolist(llist, "L");
         addtolist(llist, "O");
+        
+        printf("Here\n");
 
         printlist(llist);
 
@@ -32,7 +35,7 @@ int main () {
         addtolist(llist, "L");
         addtolist(llist, "L");
         
-        reply = addtolist(llist, 6);
+       	reply = addtolist(llist, 6);
         if(reply!=1)
         {
             printf("Failed to add to List\n");
@@ -42,9 +45,9 @@ int main () {
 
         freelist (llist);
 
-    // }
-    // else
-    // {
-    //     printf("Failed to make List\n");
-    // }
+    }
+    else
+    {
+       printf("Failed to make List\n");
+    }
 };

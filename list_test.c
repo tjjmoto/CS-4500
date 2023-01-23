@@ -40,6 +40,7 @@ int main () {
             printf("Failed to add to List\n");
         }
 
+        // Seg Fault (null input)
         printlist(llist);
 
         freelist (llist);

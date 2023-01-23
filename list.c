@@ -54,23 +54,28 @@ char* removefromlist(list* ll) {
 /* Prints every string in each node of the list ll , with a new line
 character at the end of each string */
 void printlist(list* ll) {
+    node *temp;
+    temp = ll->head;
     while (ll->head != NULL) {
         printf(" %s \n", ll->head->item);
         ll->head = ll->head->next;
     }
+    ll->head = temp;
 };
 
-/* Flushes (clears) the entirlist and re−initializes the list . The passed
+/* Flushes (clears) the entirelist and re−initializes the list . The passed
 ∗ pointer ll should still point to a valid , empty list when this function
 ∗ returns . Any memory allocated to store nodes in the list should be freed .
 */
 void flushlist(list* ll) 
 {
+    
     while (ll->head != NULL) {
-        removefromlist(ll);
+        node *temp;
+        temp = ll->head;
         ll->head = ll->head->next;
+        free(temp);
     }
-
     createlist();
 };
 
@@ -78,8 +83,10 @@ void flushlist(list* ll)
 ll is freed , including any al located strings and list ll itself . */
 void freelist (list* ll) {
     while (ll->head != NULL) {
-        removefromlist(ll);
+        node *temp;
+        temp = ll->head;
         ll->head = ll->head->next;
+        free(temp);
     }
     free(ll);
 };

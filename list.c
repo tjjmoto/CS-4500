@@ -13,10 +13,8 @@ list* createlist() {
 
 	llist->head = NULL;
     if (llist->head == NULL) {
-    	printf("ran\n");
         return llist;
     } else {
-    	printf("run\n");
         return NULL;
     }
 };
@@ -27,15 +25,12 @@ to end of the list ll . Returns 0 if successful , non−zero otherwise . */
 int addtolist(list* ll, char* item) {
     struct Node *new_node = (struct Node*)malloc(sizeof(struct Node));
     
-    printf("1\n");
 	new_node->item = item;
     new_node->next = ll->head;
     ll->head = new_node;
-	printf("2\n");
 
     if (new_node->item == ll->head->item) {
         // Successful
-        printf("3\n");
         return 0;
     } else {
         // Not successful

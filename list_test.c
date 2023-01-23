@@ -19,13 +19,12 @@ int main () {
         addtolist(llist, "L");
         addtolist(llist, "L");
         addtolist(llist, "O");
-        
-        printf("Here\n");
 
         printlist(llist);
 
         removefromlist(llist);
         removefromlist(llist);
+
 
         printlist(llist);
 

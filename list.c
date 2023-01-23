@@ -25,7 +25,7 @@ to end of the list ll . Returns 0 if successful , non−zero otherwise . */
 int addtolist(list* ll, char* item) {
     struct Node *new_node = (struct Node*)malloc(sizeof(struct Node));
     
-	new_node->item = item;
+    new_node->item = item;
     new_node->next = ll->head;
     ll->head = new_node;
 
@@ -36,6 +36,7 @@ int addtolist(list* ll, char* item) {
         // Not successful
         return 1;
     }
+
 };
 
 /* Removes the head of the list ll , extracts the string stored in the head ,

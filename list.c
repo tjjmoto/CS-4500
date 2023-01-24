@@ -43,7 +43,9 @@ int addtolist(list* ll, char* item) {
 and returns a pointer to this string . Also frees the removed head node . */
 char* removefromlist(list* ll) {
     if (ll->head != NULL) {
-        return ll->head->item;
+        // Change head
+        ll->head = ll->head->next;
+        return ll->head->next->item;
     } 
 };
 

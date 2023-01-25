@@ -39,7 +39,7 @@ int main () {
 
         addtolist(llist, "/");
         
-       	reply = addtolist(llist, 6);
+       	//reply = addtolist(llist, 6);
         if(reply!=1)
         {
             printf("Failed to add to List\n");

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "list.c"
+#include "list.h"
 
 int main () {
 
@@ -38,12 +38,6 @@ int main () {
         addtolist(llist, "L");
 
         addtolist(llist, "/");
-        
-       	//reply = addtolist(llist, 6);
-        if(reply!=1)
-        {
-            printf("Failed to add to List\n");
-        }
 
         // Seg Fault because the input is not of char type and fails to print an int
         printlist(llist);

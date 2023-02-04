@@ -26,5 +26,8 @@ int self_init_module(void) {
 }
 
 void self_cleanup_module(void) {
-    printk(KERN_INFO "Clean up\n");
+    printk(KERN_INFO "Print Self Clean Up\n");
 }
+
+module_init(self_init_module);
+module_exit(self_cleanup_module);

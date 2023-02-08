@@ -4,24 +4,20 @@
 
 int other_init_module(task_struct *task) {
     struct task_struct *task;
-    char childState[25];
 
     task = pid_task(find_vpid(pid), PIDTYPE_PID);
 
-    if (task->state == -1) {
-        printk("TASK_UNRUNNABLE\n");
-        childState = "TASK_UNRUNNABLE";
-    } else if (task->state == 0) {
-        printk("TASK_RUNNING\n");
-        childState = "TASK_RUNNING";
-    } else {
-        printk("TASK_STOPPED\n");
-        childState = "TASK_STOPPED";
-    }
-
     printk(KERN_INFO "Child Process Name: %s\n", task->comm);
     printk(KERN_INFO "Child Process ID: %d\n", task->pid);
-    printk(KERN_INFO "Child Process State: %s\n", childState);
+    printk(KERN_INFO "Child Process State: ");
+
+    if (task->state == -1) {
+        printk("TASK_UNRUNNABLE\n");
+    } else if (task->state == 0) {
+        printk("TASK_RUNNING\n");
+    } else {
+        printk("TASK_STOPPED\n");
+    }
     
     if(task!=&init_task)
 	{

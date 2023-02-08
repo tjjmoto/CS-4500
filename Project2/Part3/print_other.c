@@ -6,7 +6,8 @@
 int other_init_module(int pid) {
     struct task_struct *task;
 
-    task = pid_task(find_vpid(pid), PIDTYPE_PID);
+    //Tried to get pid to work but won't work for some reason
+    //task = pid_task(find_vpid(pid), PIDTYPE_PID);
 
     printk(KERN_INFO "Child Process Name: %s\n", task->comm);
     printk(KERN_INFO "Child Process ID: %d\n", task->pid);

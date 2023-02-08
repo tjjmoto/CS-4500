@@ -6,6 +6,8 @@ int other_init_module(task_struct *task) {
     struct task_struct *task;
     char childState[25];
 
+    task = pid_task(find_vpid(pid), PIDTYPE_PID);
+
     if (task->state == -1) {
         printk("TASK_UNRUNNABLE\n");
         childState = "TASK_UNRUNNABLE";

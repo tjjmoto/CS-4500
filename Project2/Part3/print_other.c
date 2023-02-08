@@ -1,7 +1,6 @@
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/sched.h>
-#include <string.h>
 
 int other_init_module(task_struct *task) {
     struct task_struct *task;

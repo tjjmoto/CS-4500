@@ -1,7 +1,6 @@
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/sched.h>
-#include <string.h>
 
 int self_init_module(void) {
     struct task_struct *task;

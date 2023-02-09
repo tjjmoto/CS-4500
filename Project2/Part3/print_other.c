@@ -7,12 +7,19 @@ int other_init_module(int pid) {
     struct task_struct *task;
 
     //Tried to get pid to work but won't work for some reason
-    task = pid_task(find_vpid(pid), PIDTYPE_PID);
+    //task = pid_task(find_vpid(pid), PIDTYPE_PID);
+	
+	task = current; 
+
+	while(task->pid != pid)
+	{
+		task=task->next_task;
+	}
 
     printk(KERN_INFO "Child Process Name: %s\n", task->comm);
     printk(KERN_INFO "Child Process ID: %d\n", task->pid);
     printk(KERN_INFO "Child Process State: ");
-    printk(KERN_INFO "State of PID: %d", pid);
+    //printk(KERN_INFO "State of PID: %d", pid);
 
     if (task->state == -1) {
         printk("TASK_UNRUNNABLE\n");

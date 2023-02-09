@@ -16,7 +16,6 @@ int other_init_module(int pid) {
 		printk(KERN_INFO "Child Process Name: %s\n", task->comm);
 		printk(KERN_INFO "Child Process ID: %d\n", task->pid);
 		printk(KERN_INFO "Child Process State: ");
-		printk(KERN_INFO "State of PID: %d", pid);
 		
 		if (task->state == -1) {
 		    printk("TASK_UNRUNNABLE\n");

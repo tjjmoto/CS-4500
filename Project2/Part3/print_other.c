@@ -11,34 +11,32 @@ int other_init_module(int pid) {
 	
 	task = current; 
 
-	while(task->pid != pid)
+	if(task->pid != pid)
 	{
-		task=task->next_task;
+		printk(KERN_INFO "Child Process Name: %s\n", task->comm);
+		printk(KERN_INFO "Child Process ID: %d\n", task->pid);
+		printk(KERN_INFO "Child Process State: ");
+		//printk(KERN_INFO "State of PID: %d", pid);
+		
+		if (task->state == -1) {
+		    printk("TASK_UNRUNNABLE\n");
+		} else if (task->state == 0) {
+		    printk("TASK_RUNNING\n");
+		} else {
+		    printk("TASK_STOPPED\n");
+		}
+		
+		if(task!=&init_task)
+		{
+			task=task->parent;
+		}
+		
+		for (task=current; task!=&init_task; task=task->parent) {
+		    printk(KERN_INFO "Parent Process Name: %s\n", task->comm);
+		    printk(KERN_INFO "Parent Process ID: %d\n", task->pid);
+		}
+		
 	}
-
-    printk(KERN_INFO "Child Process Name: %s\n", task->comm);
-    printk(KERN_INFO "Child Process ID: %d\n", task->pid);
-    printk(KERN_INFO "Child Process State: ");
-    //printk(KERN_INFO "State of PID: %d", pid);
-
-    if (task->state == -1) {
-        printk("TASK_UNRUNNABLE\n");
-    } else if (task->state == 0) {
-        printk("TASK_RUNNING\n");
-    } else {
-        printk("TASK_STOPPED\n");
-    }
-    
-    if(task!=&init_task)
-	{
-		task=task->parent;
-	}
-
-    for (task=current; task!=&init_task; task=task->parent) {
-        printk(KERN_INFO "Parent Process Name: %s\n", task->comm);
-        printk(KERN_INFO "Parent Process ID: %d\n", task->pid);
-    }
-
     return 0;
 }
 

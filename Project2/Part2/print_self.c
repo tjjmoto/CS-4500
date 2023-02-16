@@ -23,6 +23,16 @@ int self_init_module(void) {
     for (task=current; task!=&init_task; task=task->parent) {
         printk(KERN_INFO "Parent Process Name: %s\n", task->comm);
         printk(KERN_INFO "Parent Process ID: %d\n", task->pid);
+        printk(KERN_INFO "Parent Process State: ");
+
+        // Prints the state of the child process based on the state ID sent to the machine.
+        if (task->state == -1) {
+            printk("TASK_UNRUNNABLE\n");
+        } else if (task->state == 0) {
+            printk("TASK_RUNNING\n");
+        } else {
+            printk("TASK_STOPPED\n");
+        }
     }
 
     return 0;

@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>  //Header file for sleep(). man 3 sleep for details.
+#include <unistd.h>
 #include <pthread.h>
 
 // Function Prototypes
-void *printData(void* startpos) ; // counting the number of matches
+void *printData(void* startpos) ;
 int matchData(char *a,char *b,int pos);
 
 int n1 = 1000;
@@ -40,12 +40,14 @@ int main(int argc, char *argv[])
 	pthread_t worker[5];
 	for (int i = 0 ; i < 5 ; i++)
 	{	
-		int startpos = (i* (n1/5)) ;
-		printf ("startpos %d\n", startpos);
-        pthread_create ( &worker[i] , NULL, printData, (void*)startpos);
+		// Setting start position and printing position
+		int startingPosition = (i* (n1/5)) ;
+		printf ("Starting Position %d\n", startingPosition);
+        pthread_create ( &worker[i] , NULL, printData, (void*)startingPosition);
 	}	
 	
-	for (int i =0 ; i< 5 ; i++) // wait for all to finish
+	// Pthread Joining
+	for (int i =0 ; i< 5 ; i++) 
 	{
         pthread_join ( worker[i] , NULL);
 	}	
@@ -54,35 +56,37 @@ int main(int argc, char *argv[])
 }
 
 
-void *printData(void* startpos)
-{	
-	int pos = ((int)startpos); // the position in s1 that we should start from
-	printf ("my start pos is<%d>\n", pos ) ;
-
+void *printData(void* position)
+{
 	int temp = 0 ;
-	for (int i = pos; i < pos+stringLength ; i++) // finding te matches
+	for (int i = position; i < position+stringLength ; i++) {
 		temp += matchData(s1,s2, i);
-	printf ("my start pos is<%d>\n", pos ) ;
+	}
 	
-	pthread_mutex_lock (&mutex_lock) ;
-	totalSubstrings += temp ; // we need the lock to cange the total_num
+	// Locking the mutex
+	pthread_mutex_lock (&mutex_lock);
+	totalSubstrings += temp;
 	printf ("Current Substring Count is: %d\n", totalSubstrings);	
 	pthread_mutex_unlock (&mutex_lock) ;	
 
-	//return NULL;
+	// Pthread function exit
 	pthread_exit (0);
 }
 
-int matchData(char *a,char *b,int pos)
+int matchData(char *a, char *b, int pos)
 {
-	int lenghtb = strlen (b) - 1 ;
-	int num = 0 ;
-	for (int i = 0 ; i < lenghtb ; i++ )
-		if ( a[pos+i] != '\0'  && b[i] != '\0' && a[pos+i] == b[i] )
-			num ++ ;
-	if ( num == lenghtb )
+	int bLength = strlen (b) - 1 ;
+	int matchCount = 0 ;
+	for (int i = 0 ; i < bLength ; i++ ) {
+		if ( a[pos+i] != '\0'  && b[i] != '\0' && a[pos+i] == b[i] ) {
+			matchCount++;
+		}
+	}
+
+	if ( matchCount == bLength ) {
 		return 1;
-	else
+	} else {
 		return 0;
+	}
 
 }

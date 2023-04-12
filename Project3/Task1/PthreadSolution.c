@@ -4,7 +4,7 @@
 #include <pthread.h>
 
 // Function Prototypes
-void *printData(void* startpos) ;
+void printData(void* startpos) ;
 int matchData(char *a,char *b,int pos);
 
 int n1 = 1000;
@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
 }
 
 
-void *printData(void* position)
+void printData(void* position)
 {
 	int temp = 0 ;
 	for (int i = position; i < position+stringLength ; i++) {

@@ -3,8 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define QUEU_SIZE 5
-char queue [QUEU_SIZE] ; 
+char queue [5] ; 
 int front = 0 , rear = 0 ; // pointrs to front and rear of the queu
 int items = 0 ; // number of items in queu
 int done = 1 ; // to show that the input file is finished to read
@@ -63,7 +62,7 @@ void * p_thread()
 		pthread_mutex_lock (&mutex) ;
 			//2
 			printf ("	front<%d> rear<%d> items <%d>\n", front , rear , items ) ;	
-			while ( items >= QUEU_SIZE ) // while there is no space in queu to write
+			while ( items >= 5 ) // while there is no space in queu to write
 				pthread_cond_wait ( &space_available , &mutex ) ;
 			//3	
 			printf ("	front<%d> rear<%d> items <%d>\n", front , rear , items ) ;
@@ -71,7 +70,7 @@ void * p_thread()
 			// now we cAN write in queue
 			queue [front] = c ;
 			front ++ ;
-			if(front==QUEU_SIZE) front = 0 ;
+			if(front==5) front = 0 ;
 			items ++ ;
 			printf ("	character write to queue: <%c>\n" , c ) ;
 			printf ("	wake up a consumer \n" ) ;
@@ -110,7 +109,7 @@ void * c_thread()
 			// read the character and write it:
 			char c = queue [rear] ;
 			rear ++ ;
-			if (rear==QUEU_SIZE) rear = 0 ;
+			if (rear==5) rear = 0 ;
 			items -- ;
 			printf ("character read from queue: <%c>\n" , c ) ;
 			printf ("wake up a producer \n" ) ;

@@ -3,9 +3,10 @@
 #include <stdlib.h>
 
 char queue [5] ; 
-int front = 0 , rear = 0 ;
-int items = 0 ; 
-int fileRead = 1 ;
+int queueFront = 0;
+int queueBack = 0 ;
+int queueItems = 0 ; 
+int fileReading = 1 ;
 
 pthread_mutex_t mutex ;
 pthread_cond_t item_available ;
@@ -30,40 +31,44 @@ int main(int argc, char *argv[])
 	pthread_create ( &p_cons , NULL, cons_thread, NULL);
 	pthread_join ( p_prod , NULL );
 	pthread_join ( p_cons , NULL );
+
 	return 0;
-	
 }
+
 void prod_thread()
 {	
 	FILE *fp = fopen("message.txt","r");
 	char c ;
 	c = getc(fp);
+
 	while (c != EOF) {
-		//1
 		sleep(1);
 		pthread_mutex_lock (&mutex) ;
-			//2
-			printf ("	front<%d> rear<%d>\n", front , rear) ;	
-			while ( items >= 5 ) // while there is no space in queu to write
-				pthread_cond_wait ( &space_available , &mutex ) ;
-			//3	
-			printf ("	front<%d> rear<%d>\n", front , rear) ;
+
+			while ( queueItems >= 5 ) {
+				pthread_cond_wait ( &space_available , &mutex );
+			}
+
+			printf ("Queue Front: %d, Queue Back: %d\n", queueFront , queueBack);
 			
-			// now we cAN write in queue
-			queue [front] = c ;
-			front ++ ;
-			if(front==5) front = 0 ;
-			items ++ ;
-			printf ("	character write to queue: <%c>\n" , c ) ;
-			printf ("	wake up a consumer \n" ) ;
-			pthread_cond_signal(&item_available); // wake up a consumer
+			queue [queueFront] = c ;
+			queueFront ++ ;
+
+			if(queueFront==5) {
+				queueFront = 0 ;
+				queueItems ++ ;
+			}
+
+			printf ("Character Written to Queue: %c\n", c) ;
+			printf ("Return to Consumer \n\n" ) ;
+			pthread_cond_signal(&item_available);
 			
 		pthread_mutex_unlock (&mutex) ;
 		sleep (1);
 		c = getc(fp);		
 	}
 	pthread_mutex_lock (&mutex) ;
-	fileRead = 0 ; // we should tell the consumer that the file is finished
+	fileReading = 0 ;
 	pthread_cond_signal(&item_available);
 	pthread_mutex_unlock (&mutex) ;
 	
@@ -73,22 +78,25 @@ void prod_thread()
 
 void cons_thread()
 {	
-	while ( fileRead != 0 ) {
+	while ( fileReading != 0 ) {
 		pthread_mutex_lock (&mutex);
-			printf ("front<%d> rear<%d>\n", front , rear );	
 
-			while ( items <= 0 && fileRead!= 0 ) {
+			while ( queueItems <= 0 && fileReading!= 0 ) {
 				pthread_cond_wait ( &item_available , &mutex ) ;
 			}
 
-			printf ("front<%d> rear<%d>\n", front , rear );	
+			printf ("Queue Front: %d, Queue Back: %d\n", queueFront , queueBack );	
 
-			char c = queue [rear] ;
-			rear ++ ;
-			if (rear==5) rear = 0 ;
-			items -- ;
-			printf ("character read from queue: <%c>\n" , c );
-			printf ("wake up a producer \n" );
+			char c = queue [queueBack] ;
+			queueBack ++ ;
+
+			if (queueBack==5) {
+				queueBack = 0 ;
+				queueItems -- ;
+			}
+
+			printf ("Character Read to Queue: %c\n", c );
+			printf ("Return to Producer \n\n" );
 			pthread_cond_signal(&space_available);
 		
 		pthread_mutex_unlock (&mutex);	

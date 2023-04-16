@@ -76,7 +76,7 @@ void * producer_thread( void *arg)
 	    		ptr->data  = 1;
 				temp++;
 
-				if( TempList->header == NULL )
+				if( TempList->header == ptr )
 				{
 					temp--;
 				}

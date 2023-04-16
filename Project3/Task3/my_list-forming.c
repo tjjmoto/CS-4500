@@ -95,20 +95,31 @@ void * producer_thread( void *arg)
 					TempList->tail->next = ptr;
 					TempList->tail = ptr;
 				}
-				
-			
+
 			}
 	/* access the critical region and add a node to the global list */
             if( !pthread_mutex_trylock(&mutex_lock) )
             {
-            	//counter = counter + temp;
 
 	    /* attache the generated node to the global list */
 
 	            if( List->header == NULL )
                 {
-                    List->header = List->tail = TempList->header;
+                    List->header = TempList->header;
+                    List->tail = TempList->header;
                     counter++;
+                    
+                    if(TempList->header != TempList->tail)
+                    {                
+		                while(TempList->header != TempList->tail)
+		                {
+		                TempList->header = TempList->header->next;
+		                List->tail->next = TempList->header;
+		                List->tail = TempList->header;
+		                counter++;
+		            	}
+               		}
+                    
                 }
                 else
                 {
@@ -116,63 +127,39 @@ void * producer_thread( void *arg)
                     List->tail = TempList->header;
                     counter++;
                     
-                    if(temp>1)
-                    {
-                    TempList->header = TempList->header->next;
-                    List->tail->next = TempList->header;
-                    List->tail = TempList->header;
-                    counter++;
-                    TempList->header = TempList->header->next;
-                	}
+                    if(TempList->header != TempList->tail)
+                    {                
+		                while(TempList->header != TempList->tail)
+		                {
+		                TempList->header = TempList->header->next;
+		                List->tail->next = TempList->header;
+		                List->tail = TempList->header;
+		                counter++;
+		            	}
+               		}
+                	
+                	
+                	
                 	
                 }                    
                 pthread_mutex_unlock(&mutex_lock);
                 temp = 0;
-                
-                if( TempList->header != NULL )
-    			{
-    			    next = tmp = TempList->header;
-    			    while( tmp != NULL )
-    			    {  
-    			       next = tmp->next;
-    			       free(tmp);
-    			       tmp = next;
-    			    }            
-    			}
-    			
-                break;
-
-                /*if( List->header == NULL )//<------------------------------------------------edited 
-				{
-                    List->header = TempList->header;
-                    TempList->header = TempList->header->next;
-                    while(temp>1)
-                	{
-                    	List->tail->next = TempList->header;
-                    	List->tail = TempList->header;
-                    	temp--;
-						TempList->header = TempList->header->next;
-					}
-                }
-                else
-                {
-                	List->tail->next = TempList->header;
-                	while(temp>1)
-                	{
-                		TempList->header = TempList->header->next;
-                    	List->tail->next = TempList->header;
-                    	List->tail = TempList->header;
-                    	temp--;
-					}
-                } 
-                temp = 0;
-				pthread_mutex_unlock(&mutex_lock);
-                break;*/
-				   
-            	
+                break;	
             }
         
-        }           
+        }
+        
+        if( TempList->header != NULL )
+		{
+		    next = tmp = TempList->header;
+		    while( tmp != NULL )
+		    {  
+		       next = tmp->next;
+		       free(tmp);
+		       tmp = next;
+		    }            
+		}
+    			           
     }
 }
 

@@ -66,75 +66,81 @@ void * producer_thread( void *arg)
     /* generate and attach K nodes to the global list */
     while( counter  < K )
     {
-        ptr = generate_data_node();
-
-        if( NULL != ptr )
+    	struct list *TempList;
+    	int temp = 0;
+        while(1)
         {
-        	struct list *TempList;
-        	int temp;
-            while(1)
-            {
-            	ptr->data  = 1;//generate data <------------------------------------------------edited 
-            	if(TempList->header == NULL)//<------------------------------------------------edited 
-                {
-                	TempList->header = TempList->tail = ptr;
+        	if(!(temp>=k))
+        	{
+	    	    ptr = generate_data_node(); 
+	    		ptr->data  = 1;
+				temp++;
+				
+	
+	        	
+	        	if(TempList->header == NULL)
+	            {
+	            	TempList->header = TempList->tail = ptr;
 				}
 				/*else
 				{
 					TempList->tail->next = ptr;
 					TempList->tail = ptr;
-					temp++;
 				}*/
-		/* access the critical region and add a node to the global list */
-                if( !pthread_mutex_trylock(&mutex_lock) )
+			
+			}
+	/* access the critical region and add a node to the global list */
+            if( !pthread_mutex_trylock(&mutex_lock) )
+            {
+            	//counter = counter + temp;
+            	counter++;
+	    /* attache the generated node to the global list */
+
+
+				if( List->header == NULL )
                 {
-		    /* attache the generated node to the global list */
-
-
-					if( List->header == NULL )
-                    {
-                        List->header = List->tail = ptr;
-                    }
-                    else
-                    {
-                        List->tail->next = ptr;
-                        List->tail = ptr;
-                    }                    
-                    pthread_mutex_unlock(&mutex_lock);
-                    break;
-                    
-                    /*if( List->header == NULL )
- 					{
-                        List->header = TempList->header;
-                        TempList->header = TempList->header->next;
-                        while(TempList->header == NULL)
-                    	{
-                        	List->tail->next = TempList->header;
-                        	List->tail = TempList->header;
-                        	temp--;
-							TempList->header = TempList->header->next;
-						}
-                    }
-                    else
-                    {
-                    	List->tail->next = TempList->header;
-                    	while(temp>0)
-                    	{
-                    		TempList->header = TempList->header->next;
-                        	List->tail->next = TempList->header;
-                        	List->tail = TempList->header;
-                        	temp--;
-						}
-                    } 
-					pthread_mutex_unlock(&mutex_lock);
-                    break;
-					*/    
-                	
+                    List->header = List->tail = ptr;
                 }
+                else
+                {
+                    List->tail->next = ptr;
+                    List->tail = ptr;
+                }       
+				temp = 0;             
+                pthread_mutex_unlock(&mutex_lock);
+                break;
                 
-            }           
-        }
-        ++counter;
+                /*if( List->header == NULL )//<------------------------------------------------edited 
+				{
+                    List->header = TempList->header;
+                    TempList->header = TempList->header->next;
+                    while(temp>0)
+                	{
+                    	List->tail->next = TempList->header;
+                    	List->tail = TempList->header;
+                    	temp--;
+						TempList->header = TempList->header->next;
+					}
+                }
+                else
+                {
+                	List->tail->next = TempList->header;
+                	while(temp>0)
+                	{
+                		TempList->header = TempList->header->next;
+                    	List->tail->next = TempList->header;
+                    	List->tail = TempList->header;
+                    	temp--;
+					}
+                } 
+                temp = 0;
+				pthread_mutex_unlock(&mutex_lock);
+                break;
+				*/    
+            	
+            }
+        
+        }           
     }
 }
 

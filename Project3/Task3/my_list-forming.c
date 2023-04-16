@@ -59,9 +59,8 @@ void * producer_thread( void *arg)
 {
     bind_thread_to_cpu(*((int*)arg));//bind this thread to a CPU
 
-	struct Node  *tmp,*next;
-	
-    struct Node * ptr;
+	struct Node  *tmp,*next, *ptr;
+
     int counter = 0;  
 
     /* generate and attach K nodes to the global list */
@@ -69,7 +68,6 @@ void * producer_thread( void *arg)
     {
     	struct list *TempList = (struct list *)malloc(sizeof(struct list));
     	
-    	//TempList = (struct list *)malloc(sizeof(struct list));
     	if( NULL == List )
     	{
        		printf("End here\n");
@@ -156,7 +154,6 @@ int main(int argc, char* argv[])
 {
     int i, num_threads, NUM_PROCS;//number of CPU;
 
-    //int NUM_PROCS; number of CPU
     int* cpu_array = NULL;
 
     struct Node  *tmp,*next;

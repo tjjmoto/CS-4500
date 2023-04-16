@@ -71,6 +71,7 @@ void * producer_thread( void *arg)
         if( NULL != ptr )
         {
         	struct list *TempList;
+        	int temp;
             while(1)
             {
             	ptr->data  = 1;//generate data <------------------------------------------------edited 
@@ -102,8 +103,14 @@ void * producer_thread( void *arg)
 	                    }
 	                    else
 	                    {
-	                        List->tail->next = TempList->header;
-	                        List->tail = TempList->tail;
+	                    	List->tail->next = TempList->header;
+	                    	while(temp>0)
+	                    	{
+	                    		TempList->header = TempList->header->next;
+	                        	List->tail->next = TempList->header;
+	                        	temp--;
+							}
+							List->tail = TempList->tail;
 	                    }                        
 	                    pthread_mutex_unlock(&mutex_lock);
 	                    break;
@@ -118,6 +125,7 @@ void * producer_thread( void *arg)
 				{
 					TempList->tail->next = ptr;
 					TempList->tail = ptr;
+					temp++;
 				}
                 
             }           

@@ -130,7 +130,7 @@ void * producer_thread( void *arg)
 	                    }                        
 	                    pthread_mutex_unlock(&mutex_lock);
 	                    break;
-					}*/
+					}
                 }
                 
                 if(TempList->header == NULL)//<------------------------------------------------edited 
@@ -141,7 +141,7 @@ void * producer_thread( void *arg)
 				{
 					TempList->tail->next = ptr;
 					TempList->tail = ptr;
-					temp++; 
+					temp++;*/ 
 				}
                 
             }           

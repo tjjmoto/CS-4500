@@ -75,14 +75,14 @@ void * producer_thread( void *arg)
 	    	    ptr = generate_data_node(); 
 	    		ptr->data  = 1;
 				temp++;
+
 				if( TempList->header == NULL )
 				{
 					temp--;
 				}
-				
 	
-	        	/*
-	        	if( TempList->header == NULL )
+	        	
+	        	/*if( TempList->header == NULL )
 	            {
 	            	TempList->header = TempList->tail = ptr;
 				}
@@ -90,8 +90,8 @@ void * producer_thread( void *arg)
 				{
 					TempList->tail->next = ptr;
 					TempList->tail = ptr;
-				}
-				/*
+				}*/
+				
 			
 			}
 	/* access the critical region and add a node to the global list */

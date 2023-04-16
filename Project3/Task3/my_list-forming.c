@@ -132,11 +132,9 @@ void * producer_thread( void *arg)
 		                while(TempList->header != TempList->tail)
 		                {
 		                TempList->header = TempList->header->next;
-		                /*
 		                List->tail->next = TempList->header;
 		                List->tail = TempList->header;
 		                counter++;
-		                */
 		            	}
                		}
                 	

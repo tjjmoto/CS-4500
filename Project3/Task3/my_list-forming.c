@@ -59,8 +59,9 @@ void * producer_thread( void *arg)
 {
     bind_thread_to_cpu(*((int*)arg));//bind this thread to a CPU
 
+	struct Node  *tmp,*next;
 	
-    struct Node * ptr, tmp;
+    struct Node * ptr;
     int counter = 0;  
 
     /* generate and attach K nodes to the global list */
@@ -114,16 +115,30 @@ void * producer_thread( void *arg)
                     List->tail->next = TempList->header;
                     List->tail = TempList->header;
                     counter++;
-                    /*
+                    
+                    if(temp>1)
+                    {
+					
                     TempList->header = TempList->header->next;
                     List->tail->next = TempList->header;
                     List->tail = TempList->header;
                     counter++;
-                    */
-                    
+                	}
                 }                    
                 pthread_mutex_unlock(&mutex_lock);
                 temp = 0;
+                
+                if( TempList->header != NULL )
+    			{
+    			    next = tmp = TempList->header;
+    			    while( tmp != NULL )
+    			    {  
+    			       next = tmp->next;
+    			       free(tmp);
+    			       tmp = next;
+    			    }            
+    			}
+    			
                 break;
 
                 /*if( List->header == NULL )//<------------------------------------------------edited 

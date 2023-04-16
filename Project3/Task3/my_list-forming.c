@@ -118,16 +118,17 @@ void * producer_thread( void *arg)
                     
                     if(temp>1)
                     {
-					
                     TempList->header = TempList->header->next;
                     List->tail->next = TempList->header;
                     List->tail = TempList->header;
                     counter++;
+                    TempList->header = TempList->header->next;
                 	}
+                	
                 }                    
                 pthread_mutex_unlock(&mutex_lock);
                 temp = 0;
-                
+                /*
                 if( TempList->header != NULL )
     			{
     			    next = tmp = TempList->header;
@@ -137,7 +138,7 @@ void * producer_thread( void *arg)
     			       free(tmp);
     			       tmp = next;
     			    }            
-    			}
+    			}*/
     			
                 break;
 

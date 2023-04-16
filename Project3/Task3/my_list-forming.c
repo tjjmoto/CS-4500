@@ -108,7 +108,7 @@ void * producer_thread( void *arg)
 				{
                     List->header = TempList->header;
                     TempList->header = TempList->header->next;
-                    while(temp>0)
+                    while(temp>1)
                 	{
                     	List->tail->next = TempList->header;
                     	List->tail = TempList->header;
@@ -119,7 +119,7 @@ void * producer_thread( void *arg)
                 else
                 {
                 	List->tail->next = TempList->header;
-                	while(temp>0)
+                	while(temp>1)
                 	{
                 		TempList->header = TempList->header->next;
                     	List->tail->next = TempList->header;

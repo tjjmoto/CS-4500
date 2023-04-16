@@ -70,7 +70,7 @@ void * producer_thread( void *arg)
     	int temp = 0;
         while(1)
         {
-        	if(!(temp>=k))
+        	if(!(temp>=K))
         	{
 	    	    ptr = generate_data_node(); 
 	    		ptr->data  = 1;
@@ -78,11 +78,11 @@ void * producer_thread( void *arg)
 				
 	
 	        	
-	        	if(TempList->header == NULL)
+	        	/*if(TempList->header == NULL)
 	            {
 	            	TempList->header = TempList->tail = ptr;
 				}
-				/*else
+				else
 				{
 					TempList->tail->next = ptr;
 					TempList->tail = ptr;

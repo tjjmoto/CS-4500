@@ -90,7 +90,20 @@ void * producer_thread( void *arg)
                 {
 		    /* attache the generated node to the global list */
 
-                    if( List->header == NULL )
+
+					if( List->header == NULL )
+                    {
+                        List->header = List->tail = ptr;
+                    }
+                    else
+                    {
+                        List->tail->next = ptr;
+                        List->tail = ptr;
+                    }                    
+                    pthread_mutex_unlock(&mutex_lock);
+                    break;
+                    
+                    /*if( List->header == NULL )
  					{
                         List->header = TempList->header;
                         TempList->header = TempList->header->next;
@@ -112,7 +125,10 @@ void * producer_thread( void *arg)
                         	List->tail = TempList->header;
                         	temp--;
 						}
-                    }     
+                    } 
+					pthread_mutex_unlock(&mutex_lock);
+                    break;
+					*/    
                 	
                 }
                 

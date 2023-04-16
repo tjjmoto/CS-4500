@@ -147,20 +147,7 @@ void * producer_thread( void *arg)
                 break;	
             }
         
-        }
-        /*
-        if( TempList->header != NULL )
-		{
-		    next = tmp = TempList->header;
-		    while( tmp != NULL )
-		    {  
-		       next = tmp->next;
-		       free(tmp);
-		       tmp = next;
-		    }            
-		}
-		*/
-    			           
+        } 			           
     }
 }
 

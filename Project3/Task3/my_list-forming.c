@@ -111,13 +111,13 @@ void * producer_thread( void *arg)
                     
                     if(TempList->header != TempList->tail)
                     {                
-		                while(TempList->header != TempList->tail)
+		                /*while(TempList->header != TempList->tail)
 		                {
 		                TempList->header = TempList->header->next;
 		                List->tail->next = TempList->header;
 		                List->tail = TempList->header;
 		                counter++;
-		            	}
+		            	}*/
                		}
                     
                 }
@@ -129,13 +129,13 @@ void * producer_thread( void *arg)
                     
                     if(TempList->header != TempList->tail)
                     {                
-		                while(TempList->header != TempList->tail)
+		                /*while(TempList->header != TempList->tail)
 		                {
 		                TempList->header = TempList->header->next;
 		                List->tail->next = TempList->header;
 		                List->tail = TempList->header;
 		                counter++;
-		            	}
+		            	}*/
                		}
                 	
                 	

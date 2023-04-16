@@ -108,6 +108,7 @@ void * producer_thread( void *arg)
                     List->header = TempList->header;
                     List->tail = TempList->header;
                     counter++;
+                    TempList->header = TempList->header->next;
                     
                     if(TempList->header != TempList->tail)
                     {                
@@ -126,6 +127,7 @@ void * producer_thread( void *arg)
                     List->tail->next = TempList->header;
                     List->tail = TempList->header;
                     counter++;
+                    TempList->header = TempList->header->next;
                     
                     if(TempList->header != TempList->tail)
                     {                

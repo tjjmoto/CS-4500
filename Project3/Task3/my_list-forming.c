@@ -67,6 +67,15 @@ void * producer_thread( void *arg)
     while( counter  < K )
     {
     	struct list *TempList;
+    	
+    	TempList = (struct list *)malloc(sizeof(struct list));
+    	if( NULL == List )
+    	{
+       		printf("End here\n");
+       		exit(0);	
+    	}
+    	TempList->header = TempList->tail = NULL;
+    	
     	int temp = 0;
         while(1)
         {
@@ -76,13 +85,7 @@ void * producer_thread( void *arg)
 	    		ptr->data  = 1;
 				temp++;
 
-				if( TempList == List )
-				{
-					temp--;
-				}
-	
-	        	
-	        	/*if( TempList->header == NULL )
+	        	if( TempList->header == NULL )
 	            {
 	            	TempList->header = TempList->tail = ptr;
 				}
@@ -90,7 +93,7 @@ void * producer_thread( void *arg)
 				{
 					TempList->tail->next = ptr;
 					TempList->tail = ptr;
-				}*/
+				}
 				
 			
 			}

@@ -78,7 +78,7 @@ void * producer_thread( void *arg)
 				
 	
 	        	
-	        	if(TempList->header == NULL)
+	        	if( TempList->header == NULL )
 	            {
 	            	TempList->header = TempList->tail = ptr;
 				}

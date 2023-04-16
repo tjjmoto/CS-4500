@@ -75,49 +75,7 @@ void * producer_thread( void *arg)
             while(1)
             {
             	ptr->data  = 1;//generate data <------------------------------------------------edited 
-            	
-		/* access the critical region and add a node to the global list */
-                if( !pthread_mutex_trylock(&mutex_lock) )
-                {
-		    /* attache the generated node to the global list */
-		    		//if(TempList->header == NULL)//<------------------------------------------------edited 
-		    		{
-	                    if( List->header == NULL )
-	 					{
-	                        List->header = List->tail = ptr;
-	                    }
-	                    else
-	                    {
-	                        List->tail->next = ptr;
-	                        List->tail = ptr;
-	                    }                        
-	                    pthread_mutex_unlock(&mutex_lock);
-	                    break;
-                	}
-                	/*else//<------------------------------------------------edited 
-                	{
-                		if( List->header == NULL )
-	 					{
-	                        List->header = TempList->header;
-							List->tail = TempList->tail;
-	                    }
-	                    else
-	                    {
-	                    	List->tail->next = TempList->header;
-	                    	while(temp>0)
-	                    	{
-	                    		TempList->header = TempList->header->next;
-	                        	List->tail->next = TempList->header;
-	                        	temp--;
-							}
-							List->tail = TempList->tail;
-	                    }                        
-	                    pthread_mutex_unlock(&mutex_lock);
-	                    break;
-					}
-                }
-                
-                if(TempList->header == NULL)//<------------------------------------------------edited 
+            	if(TempList->header == NULL)//<------------------------------------------------edited 
                 {
                 	TempList->header = TempList->tail = ptr;
 				}
@@ -125,8 +83,38 @@ void * producer_thread( void *arg)
 				{
 					TempList->tail->next = ptr;
 					TempList->tail = ptr;
-					temp++;*/ 
+					temp++;
 				}
+		/* access the critical region and add a node to the global list */
+                if( !pthread_mutex_trylock(&mutex_lock) )
+                {
+		    /* attache the generated node to the global list */
+
+                    if( List->header == NULL )
+ 					{
+                        List->header = TempList->header;
+                        TempList->header = TempList->header->next;
+                        while(TempList->header == NULL)
+                    	{
+                        	List->tail->next = TempList->header;
+                        	List->tail = TempList->header;
+                        	temp--;
+							TempList->header = TempList->header->next;
+						}
+                    }
+                    else
+                    {
+                    	List->tail->next = TempList->header;
+                    	while(temp>0)
+                    	{
+                    		TempList->header = TempList->header->next;
+                        	List->tail->next = TempList->header;
+                        	List->tail = TempList->header;
+                        	temp--;
+						}
+                    }     
+                	
+                }
                 
             }           
         }

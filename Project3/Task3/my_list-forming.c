@@ -128,7 +128,7 @@ void * producer_thread( void *arg)
                 }                    
                 pthread_mutex_unlock(&mutex_lock);
                 temp = 0;
-                /*
+                
                 if( TempList->header != NULL )
     			{
     			    next = tmp = TempList->header;
@@ -138,7 +138,7 @@ void * producer_thread( void *arg)
     			       free(tmp);
     			       tmp = next;
     			    }            
-    			}*/
+    			}
     			
                 break;
 

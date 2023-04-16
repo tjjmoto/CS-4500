@@ -114,11 +114,12 @@ void * producer_thread( void *arg)
                     List->tail->next = TempList->header;
                     List->tail = TempList->header;
                     counter++;
-                    
+                    /*
                     TempList->header = TempList->header->next;
                     List->tail->next = TempList->header;
                     List->tail = TempList->header;
                     counter++;
+                    */
                     
                 }                    
                 pthread_mutex_unlock(&mutex_lock);

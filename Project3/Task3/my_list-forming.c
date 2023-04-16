@@ -150,7 +150,7 @@ void * producer_thread( void *arg)
             }
         
         }
-        
+        /*
         if( TempList->header != NULL )
 		{
 		    next = tmp = TempList->header;
@@ -161,6 +161,7 @@ void * producer_thread( void *arg)
 		       tmp = next;
 		    }            
 		}
+		*/
     			           
     }
 }

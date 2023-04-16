@@ -75,11 +75,11 @@ void * producer_thread( void *arg)
             while(1)
             {
             	ptr->data  = 1;//generate data <------------------------------------------------edited 
-            	/*if(TempList->header == NULL)//<------------------------------------------------edited 
+            	if(TempList->header == NULL)//<------------------------------------------------edited 
                 {
                 	TempList->header = TempList->tail = ptr;
 				}
-				else
+				/*else
 				{
 					TempList->tail->next = ptr;
 					TempList->tail = ptr;

@@ -96,7 +96,7 @@ void * producer_thread( void *arg)
 
 			}
 	/* access the critical region and add a node to the global list */
-            if( !pthread_mutex_lock(&mutex_lock) )
+            if( !pthread_mutex_trylock(&mutex_lock) )
             {
 
 	    /* attache the generated node to the global list */

@@ -12,7 +12,7 @@
 #include <sys/param.h>
 #include <sched.h>
 
-#define K 800 // genreate a data node for K times in each thread
+#define K 200 // genreate a data node for K times in each thread
 
 struct Node
 {
@@ -72,7 +72,7 @@ void * producer_thread( void *arg)
             while(1)
             {
 		/* access the critical region and add a node to the global list */
-                if( !pthread_mutex_lock(&mutex_lock) )
+                if( !pthread_mutex_trylock(&mutex_lock) )
                 {
                     ptr->data  = 1;//generate data
 		    /* attache the generated node to the global list */

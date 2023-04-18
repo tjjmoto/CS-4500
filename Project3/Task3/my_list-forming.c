@@ -59,13 +59,14 @@ void * producer_thread( void *arg)
 {
     bind_thread_to_cpu(*((int*)arg));//bind this thread to a CPU
 
-	struct Node  *tmp,*next, *ptr;
+	struct Node  *tmp, *next, *ptr;
 
     int counter = 0;  
 
     /* generate and attach K nodes to the global list */
     while( counter  < K )
     {
+    	//creates a temp list to store nodes while we wait for access to the mutex
     	struct list *TempList = (struct list *)malloc(sizeof(struct list));
     	
     	if( NULL == List )
@@ -78,12 +79,15 @@ void * producer_thread( void *arg)
     	int temp = 0;
         while(1)
         {
+        	//if we have not generated the every node in the temp list
         	if(!(temp>=K))
         	{
+        		//generate another node
 	    	    ptr = generate_data_node(); 
 	    		ptr->data  = 1;
 				temp++;
 
+				/* attache the generated node to the themp list */
 	        	if( TempList->header == NULL )
 	            {
 	            	TempList->header = TempList->tail = ptr;
@@ -95,12 +99,11 @@ void * producer_thread( void *arg)
 				}
 
 			}
-	/* access the critical region and add a node to the global list */
+			/* access the critical region and add a node to the global list */
             if( !pthread_mutex_trylock(&mutex_lock) )
             {
 
-	    /* attache the generated node to the global list */
-
+	    		/* attache the generated list to the global list */
 	            if( List->header == NULL )
                 {
                     List->header = TempList->header;
